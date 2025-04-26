@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "todo": "Complete project assignment",
+        "completed": false
+    },
+    {
+        "id": 2,
+        "todo": "Buy groceries",
+        "completed": true
+    },
+    {
+        "id": 4,
+        "todo": "learn php",
+        "completed": false
+    }
+]
