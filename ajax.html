@@ -61,7 +61,12 @@
             $scope.random_text = "This is random Text"
         })
 
-        app.controller('next',($scope)=>{
+        app.factory('factory',function(){
+            return "This is factory"
+        })
+
+        app.controller('next',($scope,factory)=>{
+            console.log(factory)
             $scope.name = name
         })
 
