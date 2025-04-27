@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <title>AJAX</title>
+</head>
+
+<body ng-app="myApp">
+
+    <form id="form">
+        <label for="emai">Email</label>
+        <input type="email" name="email" id="email" />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+        <button type="submit">Submit Form</button>
+    </form>
+    <div>
+        <p id="result" style="color: red;"></p>
+    </div>
+
+    <div ng-controller="MainController">{{random_text}}</div>
+
+    <div ng-controller="next">
+        <input type="text" ng-model="name">
+        <p>{{name | uppercase}}</p>
+    </div>
+
+
+    <script>
+
+        document.getElementById('form').addEventListener('submit', (event) => {
+            event.preventDefault()
+            console.log("begin with form handeling")
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://dummy.server.com/api/v1/post', true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.withCredentials = true;
+            xhr.onload = function () {
+                if (xhr.status === 201) {
+                    document.getElementById('result').innerText = "Data added successfully"
+                }
+            }
+            xhr.onerror = function () {
+                console.log("Some error occured")
+                document.getElementById('result').innerText = "Some error occured while adding data"
+                setTimeout(()=>{
+                    document.getElementById('result').innerText = ""
+                },5000)
+            }
+            const data = JSON.stringify({ "email": email, "password": password })
+            xhr.send(data);
+        })
+
+
+        var app = angular.module('myApp',[]).controller('MainController',function($scope){
+            $scope.random_text = "This is random Text"
+        })
+
+        app.controller('next',($scope)=>{
+            $scope.name = name
+        })
+
+    </script>
+</body>
+
+</html>
+
